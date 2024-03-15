@@ -57,6 +57,12 @@ you first accept a practice and the GitHub Action Workflow has run.
 
 Example of `SUMMARY.MD` is [linked here](https://github.com/yakampe/deliberate-practice/blob/example/SUMMARY.MD).
 
+## Command list
+`./practice start` - starts the practice
+`./practice main` - switches to main branch and clears history
+`./practice accept` - accepts the practice and returns to the `main` branch
+`./delete-local` - deletes all local branches
+
 ## Call for Collaboration
 
 We welcome contributions to this project! Whether you have suggestions for new templates, improvements to the script, or enhancements to the practice tracking mechanism, your input can help make this tool more beneficial for everyone.

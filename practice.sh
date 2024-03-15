@@ -107,6 +107,10 @@ accept_changes() {
     checkout_main
 }
 
+delete_local_branches() {
+    git branch | grep -v "main" | xargs git branch -D
+}
+
 if [ "$#" -eq 1 ]; then
     case "$1" in
     "start")
@@ -117,6 +121,9 @@ if [ "$#" -eq 1 ]; then
         ;;
     "accept")
         accept_changes
+        ;;
+    "delete-local")
+        delete_local_branches
         ;;
     *)
         echo "Invalid argument. Usage:"
