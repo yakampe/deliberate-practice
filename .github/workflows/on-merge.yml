@@ -1,0 +1,51 @@
+name: Update README on Merge to Accepted
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - 'accepted/**'
+
+jobs:
+  update-completed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'main' # Check out the main branch to update it
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Create and Append to the file in the specific folder
+        run: |
+          # Extract template_name from the branch name
+          BRANCH_NAME="${GITHUB_REF#refs/heads/accepted/}"
+          TEMPLATE_NAME=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
+
+          # Format current time
+          CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          FILENAME_TIME=$(date -u +"%Y-%m-%d-%H-%M")
+
+          # Define file path
+          FILE_PATH="data/history/${TEMPLATE_NAME}/${FILENAME_TIME}.md"
+          REPO_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+
+          # Ensure directory exists
+          mkdir -p "$(dirname "$FILE_PATH")"
+
+          # Append content to the file
+          printf "Accepted a deliberate practice [$BRANCH_NAME]($REPO_URL/tree/accepted/$BRANCH_NAME) @ $CURRENT_TIME" > "$FILE_PATH"
+          
+          chmod +x ./scripts/generate-summary-data.sh
+          ./scripts/generate-summary-data.sh $REPO_URL
+
+      - name: Commit and Push
+        run: |
+          git add .
+          git commit -m "Update with new practice entry"
+          git push
