@@ -55,6 +55,8 @@ This repository serves a dual purpose:
 The `summary.md` file in the main branch serves as a dashboard for your practice journey. This will be generated after 
 you first accept a practice and the GitHub Action Workflow has run.
 
+Example of `SUMMARY.MD` is [linked here](https://github.com/yakampe/deliberate-practice/blob/example/SUMMARY.MD).
+
 ## Call for Collaboration
 
 We welcome contributions to this project! Whether you have suggestions for new templates, improvements to the script, or enhancements to the practice tracking mechanism, your input can help make this tool more beneficial for everyone.
